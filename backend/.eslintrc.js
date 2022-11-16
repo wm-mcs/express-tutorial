@@ -1,18 +1,13 @@
-// eslint-disable-next-line no-undef
 module.exports = {
-  root:true,
+  root: true,
   env: {
+    commonjs: true,
     node: true,
-    es2021: true,
+    es6: true,
   },
-  extends: [
-    'eslint:recommended',    
-    'prettier',    
-  ],
+  extends: ['eslint:recommended', 'prettier'],
   parserOptions: {
-    ecmaVersion: 'latest',
     sourceType: 'commonjs',
+    ecmaVersion: 'latest',
   },
-  
- 
 };
