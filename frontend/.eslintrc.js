@@ -1,23 +1,22 @@
 // eslint-disable-next-line no-undef
 module.exports = {
-  root:true,
+  root: true,
   env: {
-    node: true,
     es2021: true,
+    browser: true,
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:vue/vue3-essential',
-    'prettier',
-    'plugin:storybook/recommended',
-  ],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'prettier'],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['vue'],
+  plugins: ['react', 'html'],
   rules: {
-    'vue/multi-word-component-names': 'off',
-    'vue/no-boolean-default': ['error', 'no-default'],
+    'react/prop-types': 'off',
   },
 };
