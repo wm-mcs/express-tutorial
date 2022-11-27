@@ -9,8 +9,16 @@ const {
 
 const { postsValidator } = require('../validators/postsValidator');
 
-router.route('/').get(getPosts).post(postsValidator, setPosts);
+const { protect } = require('../middlewares/authMiddleware');
 
-router.route('/:id').put(postsValidator, updatePosts).delete(deletePosts);
+router
+  .route('/')
+  .get(protect, getPosts)
+  .post(protect, postsValidator, setPosts);
+
+router
+  .route('/:id')
+  .put(protect, postsValidator, updatePosts)
+  .delete(protect, deletePosts);
 
 module.exports = router;
