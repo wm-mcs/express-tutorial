@@ -7,8 +7,12 @@ import './assets/styles/main.scss';
 import MainLayout from './components/layout/MainLayout';
 import ErrorPage from './components/Error';
 import Dashboard from './pages/Dashboard';
-
+import Register from './pages/Register';
+import Login from './pages/Login';
 import { routerDeclarations } from './config/router';
+import { useEnv } from './composables/use-env';
+
+const { apiUrlPath } = useEnv();
 
 const router = createBrowserRouter([
   {
@@ -18,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: routerDeclarations.home,
-        element: <h1 style={{ color: 'black' }}>Home3</h1>,
+        element: <h1 style={{ color: 'black' }}>Home3 {apiUrlPath}</h1>,
       },
 
       {
@@ -27,9 +31,12 @@ const router = createBrowserRouter([
       },
 
       {
-        path: routerDeclarations.users,
-        exact: true,
-        element: <h1 style={{ color: 'black' }}>users</h1>,
+        path: routerDeclarations.register,
+        element: <Register />,
+      },
+      {
+        path: routerDeclarations.login,
+        element: <Login />,
       },
     ],
   },

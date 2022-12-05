@@ -1,0 +1,17 @@
+.login{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+
+
+    &__title{
+        font-size: var(--font-size-3xl);
+        color: var(--color-primary-900);
+    }
+
+    &__form{
+        width: min(400px, 98%);
+    }
+}

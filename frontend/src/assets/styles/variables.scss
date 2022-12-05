@@ -79,9 +79,15 @@
   --text-muted: var(--color-white-50);
 
   // Links
-  --link-color: var(--color-primary-600);
-  --link-hover-color: var(--color-primary-400);
+  --link-color: var(--color-primary-500);
+  --link-hover-color: var(--color-primary-300);
 
   // Container
   --container-max-width: 1500px;
+
+  // Border radius
+  --border-radius-base: 4px;
+  --border-radius-lg: 6px;
+  --border-radius-xl: 10px;
+  --border-radius-general: var(--border-radius-base);
 }
