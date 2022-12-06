@@ -35,6 +35,7 @@
                 border-radius: 6px;
                 border:solid 1px transparent;
                 color:var(--color-primary-400);
+                cursor: pointer;
 
                 &--active{
                     border-color: var(--color-primary-300);

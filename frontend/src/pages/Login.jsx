@@ -3,15 +3,28 @@ import { useState } from 'react';
 import PageComponent from '../components/PageComponent';
 import Form from '../components/form/Form';
 import Button from '../components/Button';
+import { useEffect } from 'react';
 import { useFetch } from '../composables/use-fetch';
-
+import { useEnv } from './../composables/use-env';
+import { useAuth } from '../composables/use-auth';
+import { redirect } from 'react-router-dom';
 import './Login.scss';
+
+const { apiUrlPath } = useEnv();
 
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+
+  const { doFetch, data, error, loading, success } = useFetch();
+
+  useEffect(()=>{
+    
+  },[success])
+
+
 
   const onChange = (e) => {
     setFormData((prevState) => {
@@ -22,14 +35,19 @@ const Login = () => {
     });
   };
 
+  const { onUserChange, redirectAfterLogin } = useAuth();
+
   const onSubmit = (e) => {
     e.preventDefault();
-    
-    doFetch('https://pokeapi.co/api/v2/pokemon/ditto');
-    console.log(data);
+    doFetch(`${apiUrlPath}/api/users/login`, 'POST', formData);
+    if (success) {
+      onUserChange(data);
+    }
+    console.log("Se activa ? ---", success);
+    return redirect('/');
   };
 
-  const { doFetch, data, error, loading } = useFetch();
+  
 
   return (
     <PageComponent
@@ -37,10 +55,11 @@ const Login = () => {
       description="La descripción de la página del Login"
     >
       <section className="login">
+        <h1 className="login__title">Login</h1>
 
-
-        
-        <h1 className="login__title">Login  {loading && loading === true &&'cargando'}</h1>
+        <div style={{ color: 'black', fontSize: '40px' }}>
+          {success && 'ÉXITO'} {loading && 'CARGANDO'}
+        </div>
         <div className="login__form">
           <Form
             onSubmit={onSubmit}

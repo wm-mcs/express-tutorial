@@ -18,7 +18,7 @@ const setPageDescription = (desc) => {
 };
 
 const setPageData = (data) => {
-  console.log('setPageData paramsssssssss', data);
+  
   const { title, description } = data;
   setPageTitle(title);
   setPageDescription(description);

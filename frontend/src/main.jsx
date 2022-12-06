@@ -8,6 +8,7 @@ import MainLayout from './components/layout/MainLayout';
 import ErrorPage from './components/Error';
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
+import App from './components/App';
 import Login from './pages/Login';
 import { routerDeclarations } from './config/router';
 import { useEnv } from './composables/use-env';
@@ -17,7 +18,11 @@ const { apiUrlPath } = useEnv();
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainLayout />,
+    element: (
+      <App>
+        <MainLayout />
+      </App>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {

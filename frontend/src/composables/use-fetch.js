@@ -1,14 +1,17 @@
 import { useState } from 'react';
+import { redirect } from 'react-router-dom';
 
 export function useFetch() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(undefined);
+  const [success, setSuccess] = useState(false);
 
   function doFetch(url, method = 'GET', postData = null) {
     setLoading(true);
     setData([]);
     setError(undefined);
+    setSuccess(false);
 
     const config = {
       method: method, // *GET, POST, PUT, DELETE, etc.
@@ -28,9 +31,14 @@ export function useFetch() {
     }
 
     fetch(url, config)
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status == 200) {
+          setSuccess(true);
+        }
+        return res.json();
+      })
       .then((json) => {
-        setData(json);
+        setData(json.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -39,5 +47,5 @@ export function useFetch() {
       });
   }
 
-  return { data, loading, error, doFetch };
+  return { data, loading, error, success, doFetch };
 }

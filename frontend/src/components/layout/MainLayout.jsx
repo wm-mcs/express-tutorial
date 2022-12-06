@@ -1,15 +1,20 @@
 import { Outlet } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
+import { useAuth } from '../../composables/use-auth';
+
 
 import './MainLayout.scss';
 
 const MainLayout = () => {
+
+  const {user} = useAuth();
+ 
   return (
     <div className="main-layout">
-      <Header />
+      <Header  user={user}/>
       <main className="main-layout__main">{<Outlet />}</main>
-      <Footer />
+      <Footer user={user} />
     </div>
   );
 };
