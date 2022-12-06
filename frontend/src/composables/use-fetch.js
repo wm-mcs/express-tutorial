@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { redirect } from 'react-router-dom';
 
 export function useFetch() {
   const [loading, setLoading] = useState(false);
@@ -7,7 +6,7 @@ export function useFetch() {
   const [error, setError] = useState(undefined);
   const [success, setSuccess] = useState(false);
 
-  function doFetch(url, method = 'GET', postData = null) {
+  function doFetch(url, method = 'GET', postData = null, onSuccess, onError) {
     setLoading(true);
     setData([]);
     setError(undefined);
@@ -31,19 +30,31 @@ export function useFetch() {
     }
 
     fetch(url, config)
-      .then((res) => {
-        if (res.status == 200) {
-          setSuccess(true);
-        }
-        return res.json();
-      })
+      .then((r) => r.json().then((data) => ({ status: r.status, body: data })))
       .then((json) => {
-        setData(json.data);
+        const { status, body } = json;
+
+        if (status === 200) {
+          if (onSuccess) {
+            setData(body.data);
+
+            setTimeout(() => {
+              onSuccess();
+            }, 300);
+          }
+        }
+
         setLoading(false);
       })
       .catch((err) => {
         setError(err);
         setLoading(false);
+
+        if (onError) {
+          setTimeout(() => {
+            onError();
+          }, 300);
+        }
       });
   }
 

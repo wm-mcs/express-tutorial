@@ -15,6 +15,7 @@ export function useAuth() {
   };
 
   const redirectAfterLogin = () => {
+    console.log('hola');
     return redirect(routerDeclarations.dashboard);
   };
   return { user, onUserChange, logout, redirectAfterLogin };

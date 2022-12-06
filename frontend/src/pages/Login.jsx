@@ -20,12 +20,6 @@ const Login = () => {
 
   const { doFetch, data, error, loading, success } = useFetch();
 
-  useEffect(()=>{
-    
-  },[success])
-
-
-
   const onChange = (e) => {
     setFormData((prevState) => {
       return {
@@ -39,15 +33,16 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    doFetch(`${apiUrlPath}/api/users/login`, 'POST', formData);
-    if (success) {
-      onUserChange(data);
-    }
-    console.log("Se activa ? ---", success);
-    return redirect('/');
-  };
 
-  
+    console.log('Entr<');
+    doFetch(`${apiUrlPath}/api/users/login`, 'POST', formData, () => {
+      onUserChange(data);
+
+      
+
+      return redirectAfterLogin();
+    });
+  };
 
   return (
     <PageComponent
@@ -58,7 +53,7 @@ const Login = () => {
         <h1 className="login__title">Login</h1>
 
         <div style={{ color: 'black', fontSize: '40px' }}>
-          {success && 'ÉXITO'} {loading && 'CARGANDO'}
+          {error && error.message}
         </div>
         <div className="login__form">
           <Form
