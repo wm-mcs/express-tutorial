@@ -10,4 +10,7 @@ module.exports = {
     sourceType: 'commonjs',
     ecmaVersion: 'latest',
   },
+  rules: {
+    'no-unused-vars': 'off',
+  },
 };

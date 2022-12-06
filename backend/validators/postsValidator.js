@@ -26,6 +26,7 @@ exports.postsValidator = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.status(422).json(responseDataParser('upss', null, errors.array()));
+    } else {
       next();
     }
   },

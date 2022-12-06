@@ -1,9 +1,10 @@
 const { responseDataParser } = require('../utils/generalUtils');
 
-const errorHandler = (err, req, res) => {
+const errorHandler = (err, req, res, next) => {
   const statusCode = res.statusCode ? res.statusCode : 500;
 
   res.status(statusCode);
+
   res.json(
     responseDataParser(
       err.message,
