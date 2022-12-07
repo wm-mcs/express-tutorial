@@ -2,15 +2,23 @@ import { useState } from 'react';
 
 export function useFetch() {
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(undefined);
-  const [success, setSuccess] = useState(false);
 
+  const [error, setError] = useState(undefined);
+
+  /**
+   *
+   * @param {String} url
+   * @param {String} method
+   * @param {Object} postData
+   * @param {Function} onSuccess
+   * @param {Function} onError
+   * @returns
+   */
   function doFetch(url, method = 'GET', postData = null, onSuccess, onError) {
     setLoading(true);
-    setData([]);
     setError(undefined);
-    setSuccess(false);
+
+    let data = [];
 
     const config = {
       method: method, // *GET, POST, PUT, DELETE, etc.
@@ -29,25 +37,39 @@ export function useFetch() {
       config.body = JSON.stringify(postData);
     }
 
-    fetch(url, config)
+    return fetch(url, config)
       .then((r) => r.json().then((data) => ({ status: r.status, body: data })))
       .then((json) => {
         const { status, body } = json;
 
         if (status === 200) {
-          if (onSuccess) {
-            setData(body.data);
+          data = body.data;
 
+          if (onSuccess) {
             setTimeout(() => {
               onSuccess();
+            }, 300);
+          }
+
+          return data;
+        } else {
+          setError(body.message);
+
+          if (onError) {
+            setTimeout(() => {
+              onError();
             }, 300);
           }
         }
 
         setLoading(false);
       })
+      .then((data) => {
+        return data;
+      })
+
       .catch((err) => {
-        setError(err);
+        setError(err.message);
         setLoading(false);
 
         if (onError) {
@@ -58,5 +80,5 @@ export function useFetch() {
       });
   }
 
-  return { data, loading, error, success, doFetch };
+  return { loading, error, doFetch };
 }

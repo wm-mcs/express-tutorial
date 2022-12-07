@@ -1,16 +1,14 @@
 import { Link, NavLink } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+
 import { routerDeclarations } from './../../config/router';
 import { menuData } from './../../config/data';
 import { useAuth } from '../../composables/use-auth';
 
 import './Header.scss';
 
-const Header = () => {
-  const { user, logout } = useAuth();
-  const [authUser, setAuthUser] = useState(user);
-
-  useEffect(() => {}, [user]);
+const Header = (props) => {
+  const { user } = props;
+  const { logout } = useAuth();
 
   return (
     <header className="header">
@@ -22,39 +20,37 @@ const Header = () => {
           <ul className="header__container__right-block__nav-container">
             {menuData
               .filter((data) => {
-                if (authUser === null) {
+                if (user === null) {
                   return data.access === 'public';
                 }
 
                 return data.access === 'auth';
               })
-              .map((menu) => {
+              .map((menu, index) => {
                 return (
-                  <>
-                    <NavLink
-                      key={menu.route}
-                      to={menu.route}
-                      className={({ isActive }) =>
-                        `header__container__right-block__nav-container__menu-item  ${
-                          isActive
-                            ? 'header__container__right-block__nav-container__menu-item--active'
-                            : undefined
-                        }`
-                      }
-                    >
-                      <li>{menu.name}</li>
-                    </NavLink>
-                    {user !== null && (
-                      <li
-                        className="header__container__right-block__nav-container__menu-item"
-                        onClick={logout}
-                      >
-                        Salir
-                      </li>
-                    )}
-                  </>
+                  <NavLink
+                    key={`${menu.name} ${index}`}
+                    to={menu.route}
+                    className={({ isActive }) =>
+                      `header__container__right-block__nav-container__menu-item  ${
+                        isActive
+                          ? 'header__container__right-block__nav-container__menu-item--active'
+                          : undefined
+                      }`
+                    }
+                  >
+                    <li>{menu.name}</li>
+                  </NavLink>
                 );
               })}
+            {user !== null && (
+              <li
+                className="header__container__right-block__nav-container__menu-item"
+                onClick={logout}
+              >
+                Salir
+              </li>
+            )}
           </ul>
         </nav>
       </div>

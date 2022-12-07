@@ -1,22 +1,22 @@
 import { routerDeclarations } from './../config/router';
-import { redirect } from 'react-router-dom';
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function useAuth() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const user = JSON.parse(localStorage.getItem('user'));
 
   const onUserChange = (userParam) => {
-    setUser(localStorage.setItem('user', JSON.stringify(userParam)));
+    localStorage.setItem('user', JSON.stringify(userParam));
   };
+
+  const navigate = useNavigate();
 
   const logout = () => {
     onUserChange(null);
-    return redirect(routerDeclarations.home);
+    return navigate(routerDeclarations.home);
   };
 
   const redirectAfterLogin = () => {
-    console.log('hola');
-    return redirect(routerDeclarations.dashboard);
+    return navigate(routerDeclarations.dashboard);
   };
   return { user, onUserChange, logout, redirectAfterLogin };
 }

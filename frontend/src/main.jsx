@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import './assets/styles/main.scss';
 
-import MainLayout from './components/layout/MainLayout';
 import ErrorPage from './components/Error';
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
@@ -18,11 +17,7 @@ const { apiUrlPath } = useEnv();
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <App>
-        <MainLayout />
-      </App>
-    ),
+    element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {

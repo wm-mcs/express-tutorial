@@ -3,11 +3,11 @@ import { useState } from 'react';
 import PageComponent from '../components/PageComponent';
 import Form from '../components/form/Form';
 import Button from '../components/Button';
-import { useEffect } from 'react';
+
 import { useFetch } from '../composables/use-fetch';
 import { useEnv } from './../composables/use-env';
 import { useAuth } from '../composables/use-auth';
-import { redirect } from 'react-router-dom';
+
 import './Login.scss';
 
 const { apiUrlPath } = useEnv();
@@ -18,7 +18,7 @@ const Login = () => {
     password: '',
   });
 
-  const { doFetch, data, error, loading, success } = useFetch();
+  const { doFetch, error, loading } = useFetch();
 
   const onChange = (e) => {
     setFormData((prevState) => {
@@ -31,17 +31,18 @@ const Login = () => {
 
   const { onUserChange, redirectAfterLogin } = useAuth();
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    console.log('Entr<');
-    doFetch(`${apiUrlPath}/api/users/login`, 'POST', formData, () => {
-      onUserChange(data);
-
-      
-
-      return redirectAfterLogin();
-    });
+    const nuevaData = await doFetch(
+      `${apiUrlPath}/api/users/login`,
+      'POST',
+      formData,
+      () => {
+        onUserChange(nuevaData);
+        return redirectAfterLogin();
+      }
+    );
   };
 
   return (
@@ -52,9 +53,7 @@ const Login = () => {
       <section className="login">
         <h1 className="login__title">Login</h1>
 
-        <div style={{ color: 'black', fontSize: '40px' }}>
-          {error && error.message}
-        </div>
+        <div style={{ color: 'black', fontSize: '40px' }}>{error && error}</div>
         <div className="login__form">
           <Form
             onSubmit={onSubmit}
