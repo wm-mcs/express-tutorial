@@ -14,7 +14,14 @@ export function useFetch() {
    * @param {Function} onError
    * @returns
    */
-  function doFetch(url, method = 'GET', postData = null, onSuccess, onError) {
+  function doFetch(
+    url,
+    method = 'GET',
+    postData = null,
+    onSuccess,
+    onError,
+    token
+  ) {
     setLoading(true);
     setError(undefined);
 
@@ -37,6 +44,10 @@ export function useFetch() {
       config.body = JSON.stringify(postData);
     }
 
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+
     return fetch(url, config)
       .then((r) => r.json().then((data) => ({ status: r.status, body: data })))
       .then((json) => {
@@ -47,18 +58,24 @@ export function useFetch() {
 
           if (onSuccess) {
             setTimeout(() => {
-              onSuccess();
-            }, 300);
+              onSuccess(data);
+            }, 0);
           }
+
+          setLoading(false);
 
           return data;
         } else {
-          setError(body.message);
+          if (body.errors && body.errors.length > 0) {
+            // poner los errores que vienen en formato array desde el backend
+          } else {
+            setError(body.message);
+          }
 
           if (onError) {
             setTimeout(() => {
-              onError();
-            }, 300);
+              onError(body);
+            }, 0);
           }
         }
 

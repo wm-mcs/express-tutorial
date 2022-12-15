@@ -9,7 +9,7 @@ const PageComponent = (props) => {
 
   setPageData({ title, description });
 
-  return <>{props.children}</>;
+  return <div className="page-component">{props.children}</div>;
 };
 
 export default PageComponent;

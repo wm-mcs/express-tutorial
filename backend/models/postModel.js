@@ -2,6 +2,11 @@ const moongoose = require('mongoose');
 
 const postSchema = moongoose.Schema(
   {
+    user: {
+      type: moongoose.Schema.Types.ObjectId,
+      require: true,
+      ref: 'User',
+    },
     title: {
       type: String,
       require: [true, 'Please add a  title'],
