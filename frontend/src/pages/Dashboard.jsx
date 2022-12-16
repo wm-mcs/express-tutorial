@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 import './Dashboard.scss';
-import PageComponent from '../components/PageComponent';
+import PageComponent from '../components/layout/pages/PageComponent';
+import PageTitle from '../components/layout/pages/PageTitle';
+import PageSubTitle from '../components/layout/pages/PageSubTitle';
 import Loader from '../components/Loader';
 import LoaderGroup from '../components/LoaderGroup';
+import Post from '../components/Post';
+
 import { useFetch } from '../composables/use-fetch';
 import { useEnv } from './../composables/use-env';
 import { useAuth } from '../composables/use-auth';
@@ -10,7 +14,7 @@ const { apiUrlPath } = useEnv();
 
 const Dashboard = () => {
   const { doFetch, loading } = useFetch();
-  const [, setPosts] = useState();
+  const [posts, setPosts] = useState([]);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -36,7 +40,23 @@ const Dashboard = () => {
       description="La descripción de la página del dashboard"
     >
       <div className="dashboard">
-        <div className="dashboard__title">Posts</div>
+        <PageTitle>Posts</PageTitle>
+
+        {posts.length > 0 ? (
+          <div className="dashboard__posts">
+            <PageSubTitle>Listado de posts</PageSubTitle>
+
+            <div className="dashboard__posts__post-container">
+              {posts.map((post) => (
+                <div key={post.title}>
+                  <Post post={post} />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
 
         {loading ? (
           <LoaderGroup>

@@ -1,4 +1,4 @@
-import PageComponent from '../components/PageComponent';
+import PageComponent from '../components/layout/pages/PageComponent';
 
 import './Register.scss';
 

@@ -8,16 +8,18 @@
   --font-size-12: 12px;
   --font-size-14: 14px;
   --font-size-16: 16px;
-  --font-size-21: 21px;
-  --font-size-28: 28px;
-  --font-size-base: var(--font-size-16);
+  --font-size-18: 18px;
+  --font-size-36: 36px;
+  --font-size-54: 54px;
+
   --font-size-xs: var(--font-size-8);
   --font-size-sm: var(--font-size-10);
-  --font-size-md: var(--font-size-12);
-  --font-size-lg: var(--font-size-14);
-  --font-size-xl: var(--font-size-16);
-  --font-size-2xl: var(--font-size-21);
-  --font-size-3xl: var(--font-size-28);
+  --font-size-base: var(--font-size-12);
+  --font-size-md: var(--font-size-14);
+  --font-size-lg: var(--font-size-16);
+  --font-size-xl: var(--font-size-18);
+  --font-size-2xl: var(--font-size-36);
+  --font-size-3xl: var(--font-size-54);
 
   // Font:weight
   --font-weight-lighter: lighter;
@@ -64,6 +66,8 @@
   --color-white-25: rgba(255, 255, 255, 0.25);
   --color-white-50: rgba(255, 255, 255, 0.5);
   --color-white-75: rgba(255, 255, 255, 0.75);
+  --color-white-80: rgba(255, 255, 255, 0.8);
+  --color-white-90: rgba(255, 255, 255, 0.9);
 
   --color-purple-300: #8552b6;
   --color-purple-400: #7d40b6;

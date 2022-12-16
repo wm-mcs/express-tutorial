@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import PageComponent from '../components/PageComponent';
+import PageComponent from '../components/layout/pages/PageComponent';
+import PageTitle from '../components/layout/pages/PageTitle';
 import Form from '../components/form/Form';
 import Button from '../components/Button';
 
@@ -51,7 +52,7 @@ const Login = () => {
       description="La descripción de la página del Login"
     >
       <section className="login">
-        <h1 className="login__title">Login</h1>
+        <PageTitle>Login</PageTitle>
 
         <div style={{ color: 'black', fontSize: '40px' }}>{error && error}</div>
         <div className="login__form">

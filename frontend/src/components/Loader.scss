@@ -4,7 +4,7 @@
   position: relative;
   border-radius: 8px;
   overflow: hidden;
-  background-color: #dddbdd;
+  background-color: var(--color-primary-50);
 
   &::after {
     position: absolute;
@@ -22,11 +22,5 @@
     );
     animation: shimmer 2s infinite;
     content: '';
-  }
-
-  @keyframes shimmer {
-    100% {
-      transform: translateX(100%);
-    }
   }
 }

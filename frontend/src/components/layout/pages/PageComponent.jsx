@@ -1,4 +1,4 @@
-import { usePage } from '../composables/use-page';
+import { usePage } from '../../../composables/use-page';
 
 import './PageComponent.scss';
 
