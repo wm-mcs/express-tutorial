@@ -22,9 +22,18 @@ const setPosts = asyncHandler(async (req, res) => {
 // @desc    Update post
 // @route   PUT /api/posts:id
 // @access  Private
-const updatePosts = (req, res) => {
-  res.status(200).json({ message: `Update post ${req.params.id}` });
-};
+const updatePosts = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const post = await Post.findById(id);
+  if (!post) {
+    res.status(400);
+    throw new Error('Post not found');
+  }
+
+  const updatedPost = await Post.findByIdAndUpdate(id, req.body, { new: true });
+
+  res.status(200).json(responseDataParser('Post updated ok', updatedPost));
+});
 
 // @desc    Delete post
 // @route   DELETE /api/posts:id

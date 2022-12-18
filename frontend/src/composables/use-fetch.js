@@ -1,9 +1,15 @@
 import { useState } from 'react';
+import { useEnv } from './use-env';
+import { useAuth } from './use-auth';
 
 export function useFetch() {
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState(undefined);
+
+  const { apiUrlPath } = useEnv();
+
+  const { user } = useAuth();
 
   /**
    *
@@ -14,14 +20,7 @@ export function useFetch() {
    * @param {Function} onError
    * @returns
    */
-  function doFetch(
-    url,
-    method = 'GET',
-    postData = null,
-    onSuccess,
-    onError,
-    token
-  ) {
+  function doFetch(url, method = 'GET', postData = null, onSuccess, onError) {
     setLoading(true);
     setError(undefined);
 
@@ -40,15 +39,15 @@ export function useFetch() {
       referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     };
 
-    if (method === 'POST') {
+    if (postData) {
       config.body = JSON.stringify(postData);
     }
 
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+    if (user) {
+      config.headers['Authorization'] = `Bearer ${user.token}`;
     }
 
-    return fetch(url, config)
+    return fetch(`${apiUrlPath}${url}`, config)
       .then((r) => r.json().then((data) => ({ status: r.status, body: data })))
       .then((json) => {
         const { status, body } = json;

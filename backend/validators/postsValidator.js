@@ -23,6 +23,7 @@ exports.postsValidator = [
     .withMessage('Minimum 3 characters required!')
     .bail(),
   (req, res, next) => {
+    console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.status(422).json(responseDataParser('upss', null, errors.array()));

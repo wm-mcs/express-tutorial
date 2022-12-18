@@ -6,12 +6,9 @@ import Form from '../components/form/Form';
 import Button from '../components/Button';
 
 import { useFetch } from '../composables/use-fetch';
-import { useEnv } from './../composables/use-env';
 import { useAuth } from '../composables/use-auth';
 
 import './Login.scss';
-
-const { apiUrlPath } = useEnv();
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -36,7 +33,7 @@ const Login = () => {
     e.preventDefault();
 
     const nuevaData = await doFetch(
-      `${apiUrlPath}/api/users/login`,
+      `/api/users/login`,
       'POST',
       formData,
       () => {
@@ -54,15 +51,8 @@ const Login = () => {
       <section className="login">
         <PageTitle>Login</PageTitle>
 
-        <div style={{ color: 'black', fontSize: '40px' }}>{error && error}</div>
         <div className="login__form">
-          <Form
-            onSubmit={onSubmit}
-            style={{
-              opacity: loading ? '0.5' : 1,
-              pointerEvents: loading ? 'none' : 'auto',
-            }}
-          >
+          <Form loading={loading} onSubmit={onSubmit} error={error}>
             <fieldset>
               <legend>Iniciar sesión</legend>
               <input

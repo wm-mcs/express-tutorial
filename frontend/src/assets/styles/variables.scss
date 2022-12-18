@@ -46,7 +46,7 @@
   --color-white: rgba(255, 255, 255, 1);
   --color-black: #000;
   --color-dark: #241b38;
-  --color-error: #ff511a;
+  --color-error: var(--color-red);
   --color-success: var(--color-lime);
   --color-warning: var(--color-orange);
   --color-highlight: var(--color-primary-600);

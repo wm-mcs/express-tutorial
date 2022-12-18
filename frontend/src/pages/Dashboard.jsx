@@ -8,29 +8,23 @@ import LoaderGroup from '../components/LoaderGroup';
 import Post from '../components/Post';
 
 import { useFetch } from '../composables/use-fetch';
-import { useEnv } from './../composables/use-env';
-import { useAuth } from '../composables/use-auth';
-const { apiUrlPath } = useEnv();
 
 const Dashboard = () => {
   const { doFetch, loading } = useFetch();
   const [posts, setPosts] = useState([]);
-  const { user } = useAuth();
+  const getPost = async () => {
+    let post = await doFetch(
+      `/api/posts`,
+      'GET',
+      null,
+      () => {
+        setPosts(post);
+      },
+      null
+    );
+  };
 
   useEffect(() => {
-    const getPost = async () => {
-      let post = await doFetch(
-        `${apiUrlPath}/api/posts`,
-        'GET',
-        null,
-        () => {
-          setPosts(post);
-        },
-        null,
-        user.token
-      );
-    };
-
     getPost();
   }, []);
 
@@ -49,7 +43,7 @@ const Dashboard = () => {
             <div className="dashboard__posts__post-container">
               {posts.map((post) => (
                 <div key={post.title}>
-                  <Post post={post} />
+                  <Post updateDataAfterChange={getPost} post={post} />
                 </div>
               ))}
             </div>
