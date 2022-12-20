@@ -67,6 +67,9 @@ export function useFetch() {
         } else {
           if (body.errors && body.errors.length > 0) {
             // poner los errores que vienen en formato array desde el backend
+            const errorMessagesText = body.errors.map((error) => error.msg.en);
+
+            setError(errorMessagesText.join('. '));
           } else {
             setError(body.message);
           }

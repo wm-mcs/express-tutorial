@@ -16,6 +16,21 @@
     background-color: var(--color-primary-50);
     width: min(98%, 400px);
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__title {
+      text-align: center;
+      font-size: var(--font-size-xl);
+      color: var(--color-primary-900);
+      font-weight: var(--font-weight-bold);
+      border-bottom: solid 4px var(--color-primary-200);
+    }
+
+    &__body {
+      width: 100%;
+    }
 
     &__close-button {
       position: absolute;

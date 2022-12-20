@@ -7,7 +7,7 @@ import './Modal.scss';
 
 const modalElement = document.getElementById('portal');
 
-const Modal = ({ isOpen, setIsOpen, children }) => {
+const Modal = ({ isOpen, setIsOpen, children, title }) => {
   const nodeRef = useRef(null);
 
   const closeLayer = (e) => {
@@ -35,7 +35,9 @@ const Modal = ({ isOpen, setIsOpen, children }) => {
             <FaTimes />
           </span>
 
-          {children}
+          {title && <div className="modal__content__title"> {title}</div>}
+
+          <div className="modal__content__body">{children}</div>
         </div>
       </div>
     </CSSTransition>,

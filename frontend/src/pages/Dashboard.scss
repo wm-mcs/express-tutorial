@@ -13,6 +13,18 @@
     width: 100%;
     gap: 16px;
 
+    &__add-text {
+      cursor: pointer;
+      color: var(--link-color);
+      background-color: var(--color-primary-50);
+      border-radius: var(--border-radius-xl);
+      padding: 0 8px;
+
+      &:hover {
+        color: var(--link-hover-color);
+      }
+    }
+
     &__post-container {
       display: grid;
 

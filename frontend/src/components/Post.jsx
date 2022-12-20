@@ -50,7 +50,11 @@ const Post = (props) => {
       </h3>
       <h4 className="post__description">{description}</h4>
 
-      <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+      <Modal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        title={`EDITAR: ${formData.title}`}
+      >
         <div>
           <Form loading={loading} onSubmit={onSubmit} error={error}>
             <fieldset>
