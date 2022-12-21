@@ -38,9 +38,18 @@ const updatePosts = asyncHandler(async (req, res) => {
 // @desc    Delete post
 // @route   DELETE /api/posts:id
 // @access  Private
-const deletePosts = (req, res) => {
-  res.status(200).json({ message: `Delete post ${req.params.id}` });
-};
+const deletePosts = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const post = await Post.findById(id);
+  if (!post) {
+    res.status(400);
+    throw new Error('Post not found');
+  }
+
+  post.remove();
+
+  res.status(200).json(responseDataParser('Post deleted ok', { id: id }));
+});
 
 module.exports = {
   getPosts,

@@ -16,4 +16,22 @@
     font-size: var(--font-size-base);
     color: var(--color-dark);
   }
+
+  &__buttons {
+    display: flex;
+    gap: 4px;
+
+    &__button {
+      padding: 4px;
+      border-radius: var(--border-radius-lg);
+      border: solid 1px transparent;
+      color: var(--color-primary-200);
+      font-size: var(--font-size-base);
+
+      &:hover {
+        border: solid 1px var(--color-primary-300);
+        color: var(--color-primary-300);
+      }
+    }
+  }
 }

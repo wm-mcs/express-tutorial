@@ -4,7 +4,7 @@ import Modal from './Modal';
 import Form from './form/Form';
 import Button from './Button';
 import { useFetch } from '../composables/use-fetch';
-
+import { FaTrash } from 'react-icons/fa';
 const Post = (props) => {
   const { title, description, _id } = props.post;
   const { updateDataAfterChange } = props;
@@ -38,8 +38,28 @@ const Post = (props) => {
     });
   };
 
+  const onDelete = async (e) => {
+    e.preventDefault();
+
+    let validation = confirm('Are you shure?');
+
+    if (!validation) return;
+
+    const data = formData;
+
+    await doFetch(`/api/posts/${_id}`, 'DELETE', data, () => {
+      updateDataAfterChange();
+    });
+  };
+
   return (
-    <article className="post">
+    <article
+      style={{
+        opacity: loading ? '0.5' : 1,
+        pointerEvents: loading ? 'none' : 'auto',
+      }}
+      className="post"
+    >
       <h3
         onClick={() => {
           setIsOpen(true);
@@ -49,6 +69,12 @@ const Post = (props) => {
         {title}
       </h3>
       <h4 className="post__description">{description}</h4>
+
+      <div className="post__buttons">
+        <button className="post__buttons__button" onClick={onDelete}>
+          <FaTrash />
+        </button>
+      </div>
 
       <Modal
         isOpen={isOpen}

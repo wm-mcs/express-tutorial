@@ -49,19 +49,18 @@ const Dashboard = () => {
         <div className="dashboard">
           <PageTitle>Posts</PageTitle>
 
+          <span
+            onClick={() => {
+              setShowCreate(true);
+            }}
+            className="dashboard__posts__add-text"
+          >
+            Crear nuevo post <FaPlus />
+          </span>
+
           {posts.length > 0 ? (
             <div className="dashboard__posts">
-              <PageSubTitle>
-                Listado de posts{' '}
-                <span
-                  onClick={() => {
-                    setShowCreate(true);
-                  }}
-                  className="dashboard__posts__add-text"
-                >
-                  Crear nuevo post <FaPlus />
-                </span>{' '}
-              </PageSubTitle>
+              <PageSubTitle>Listado de posts </PageSubTitle>
 
               <div className="dashboard__posts__post-container">
                 {posts.map((post) => (
