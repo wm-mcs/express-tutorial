@@ -9,10 +9,8 @@ import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
 import App from './components/App';
 import Login from './pages/Login';
+import Home from './pages/Home';
 import { routerDeclarations } from './config/router';
-import { useEnv } from './composables/use-env';
-
-const { apiUrlPath } = useEnv();
 
 const router = createBrowserRouter([
   {
@@ -22,7 +20,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: routerDeclarations.home,
-        element: <h1 style={{ color: 'black' }}>Home3 {apiUrlPath}</h1>,
+        element: <Home />,
       },
 
       {

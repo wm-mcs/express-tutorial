@@ -47,10 +47,9 @@ const Login = () => {
     <PageComponent
       title="Login"
       description="La descripción de la página del Login"
+      titleSection={<PageTitle>Login</PageTitle>}
     >
       <section className="login">
-        <PageTitle>Login</PageTitle>
-
         <div className="login__form">
           <Form loading={loading} onSubmit={onSubmit} error={error}>
             <fieldset>

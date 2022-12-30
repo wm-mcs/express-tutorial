@@ -45,10 +45,9 @@ const Dashboard = () => {
       <PageComponent
         title="Dashboard"
         description="La descripción de la página del dashboard"
+        titleSection={<PageTitle>Posts</PageTitle>}
       >
         <div className="dashboard">
-          <PageTitle>Posts</PageTitle>
-
           <span
             onClick={() => {
               setShowCreate(true);
